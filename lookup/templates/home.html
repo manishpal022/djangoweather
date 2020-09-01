@@ -1,7 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content%}
+    <br/>
 
-    <h1>Home Page</h1>
+{% if zipcode %}
+    {{ zipcode }}
+{% endif %}
+
+{% if api %}
+
+    {% if api == "Error..." %}
+        There was an error. Please try again.
+    {% else %}
+        <div class="jumbotron {{ category_color }}">
+          <h1 class="display-4">Location: {{ api.0.ReportingArea }}</h1>
+          <p class="lead">Air Quality: {{ api.0.AQI }}</p>
+          <p class="lead">Category: {{ api.0.Category.Name }}</p>
+
+            {% if api.0.Category.Name == "Good" %}
+                <p>(0-50) Air Quality is considered satisfactory, and air pollution poses little or no risk.</p>
+            {% elif api.0.Category.Name == "Moderate" %}
+                <p>(51-100) Air Quality is acceptable:, however , for some pollutants there may be moderate health concern.</p>
+            {% elif api.0.Category.Name == "Unhealthy for Sensitive Groups" %}
+                <p>Although general  public is not likely to be affected</p>
+            {% elif api.0.Category.Name == "Very Unhealthy" %}
+                <p>Everyone may begin to experience health effects.</p>
+            {% elif api.0.Category.Name == "Hazardous" %}
+                <p>Health warnings of emergency conditions.</p>
+            {% endif %}
+          <hr class="my-4">
+        </div>
+        <br/>
+    {% endif %}
+
+{% endif %}
+
+
 
 {% endblock content%}
