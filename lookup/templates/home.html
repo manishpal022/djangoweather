@@ -27,6 +27,8 @@
                 <p>Everyone may begin to experience health effects.</p>
             {% elif api.0.Category.Name == "Hazardous" %}
                 <p>Health warnings of emergency conditions.</p>
+            {% elif api.0.Category.Name == "No Output" %}
+                <p>Some unknown errors #404.</p>
             {% endif %}
           <hr class="my-4">
         </div>
